@@ -1,6 +1,7 @@
 package com.example.credit_card_tracker;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Objects;
 
 public class CreditCard {
@@ -11,7 +12,7 @@ public class CreditCard {
     private String bank;
     private Integer annual_fee;
     private LocalDate opening_date;
-    private String multipliers;
+    private List<String> multipliers;
     private String welcome_bonus;
 
     // Constructors
@@ -23,7 +24,7 @@ public class CreditCard {
             String bank,
             Integer annual_fee,
             LocalDate opening_date,
-            String multipliers,
+            List<String> multipliers,
             String welcome_bonus) {
         this.id = id;
         this.name = name;
@@ -75,11 +76,11 @@ public class CreditCard {
         this.opening_date = opening_date;
     }
 
-    public String getMultipliers() {
+    public List<String> getMultipliers() {
         return multipliers;
     }
 
-    public void setMultipliers(String multipliers) {
+    public void setMultipliers(List<String> multipliers) {
         this.multipliers = multipliers;
     }
 
@@ -110,5 +111,4 @@ public class CreditCard {
     public int hashCode() {
         return Objects.hash(id, name, bank, annual_fee, opening_date, multipliers, welcome_bonus);
     }
-
 }
