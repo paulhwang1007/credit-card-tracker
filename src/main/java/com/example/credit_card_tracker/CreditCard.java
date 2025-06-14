@@ -1,12 +1,16 @@
 package com.example.credit_card_tracker;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
 
+@Entity
 public class CreditCard {
 
     // Fields
+    @Id
     private Integer id;
     private String name;
     private String bank;
