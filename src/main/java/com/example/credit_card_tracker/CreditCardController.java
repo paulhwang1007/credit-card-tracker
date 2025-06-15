@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.time.Month;
 import java.util.List;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -20,6 +21,11 @@ public class CreditCardController {
     @GetMapping
     public List<CreditCard> getCreditCards() {
         return creditCardService.getAllCreditCards();
+    }
+
+    @PostMapping
+    public void addNewCreditCard(CreditCard creditCard) {
+        creditCardService.insertCreditCard(creditCard);
     }
 }
 

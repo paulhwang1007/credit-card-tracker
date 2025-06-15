@@ -18,4 +18,8 @@ public class CreditCardService {
     public List<CreditCard> getAllCreditCards() {
         return creditCardRepository.findAll();
     }
+
+    public void insertCreditCard(CreditCard creditCard) {
+        creditCardRepository.save(creditCard);
+    }
 }
