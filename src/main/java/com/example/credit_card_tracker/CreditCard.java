@@ -4,17 +4,29 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.SequenceGenerator;
+import jakarta.persistence.Table;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
 
 @Entity
+@Table
 public class CreditCard {
 
     // Fields
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    @SequenceGenerator(
+            name = "credit_card_sequence",
+            sequenceName = "credit_card_sequence",
+            allocationSize = 1
+    )
+    @GeneratedValue(
+            strategy = GenerationType.SEQUENCE,
+            generator = "credit_card_sequence"
+    )
+
+    private Long id;
     private String name;
     private String bank;
     private Integer annual_fee;
@@ -26,7 +38,7 @@ public class CreditCard {
     public CreditCard() {
     }
 
-    public CreditCard(Integer id,
+    public CreditCard(Long id,
             String name,
             String bank,
             Integer annual_fee,
@@ -42,12 +54,22 @@ public class CreditCard {
         this.welcome_bonus = welcome_bonus;
     }
 
+    public CreditCard(String name, String bank, Integer annual_fee, LocalDate opening_date,
+            List<String> multipliers, String welcome_bonus) {
+        this.name = name;
+        this.bank = bank;
+        this.annual_fee = annual_fee;
+        this.opening_date = opening_date;
+        this.multipliers = multipliers;
+        this.welcome_bonus = welcome_bonus;
+    }
+
     // Getters and Setters
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

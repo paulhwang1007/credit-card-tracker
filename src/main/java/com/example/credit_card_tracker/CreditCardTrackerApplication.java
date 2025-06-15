@@ -13,9 +13,4 @@ public class CreditCardTrackerApplication {
 		SpringApplication.run(CreditCardTrackerApplication.class, args);
 	}
 
-	@GetMapping
-	public String helloWorld() {
-		return "Hello World Spring Boot";
-	}
-
 }

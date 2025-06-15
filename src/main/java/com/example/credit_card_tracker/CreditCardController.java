@@ -3,9 +3,14 @@ package com.example.credit_card_tracker;
 import java.time.LocalDate;
 import java.time.Month;
 import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -14,47 +19,32 @@ public class CreditCardController {
 
     private final CreditCardService creditCardService;
 
+    @Autowired
     public CreditCardController(CreditCardService creditCardService) {
         this.creditCardService = creditCardService;
     }
 
     @GetMapping
-    public List<CreditCard> getCreditCards() {
+    public List<CreditCard> getCreditCard() {
         return creditCardService.getAllCreditCards();
     }
 
     @PostMapping
-    public void addNewCreditCard(CreditCard creditCard) {
-        creditCardService.insertCreditCard(creditCard);
+    public void postNewCreditCard(CreditCard creditCard) {
+        creditCardService.addCreditCard(creditCard);
+    }
+
+    @DeleteMapping(path = "{creditCardId}")
+    public void deleteCreditCard(@PathVariable("creditCardId") Long id) {
+        creditCardService.removeCreditCard(id);
+    }
+
+    @PutMapping(path = "{creditCardId}")
+    public void putCreditCard(
+            @PathVariable("creditCardId") Long creditCardId,
+            @RequestParam(required = false) String name,
+            @RequestParam(required = false) String bank
+    ) {
+        creditCardService.updateCreditCard(creditCardId, name, bank);
     }
 }
-
-
-//return List.of(
-//                new CreditCard(
-//                1,
-//                        "Discover IT",
-//                                "Capital One",
-//                                0,
-//        LocalDate.of(2023, Month.NOVEMBER, 4),
-//                        List.of(
-//                                "5% Cashback on quarterly select shops",
-//                                        "1% Cashback on all other purchases"
-//),
-//                        "Unlimited Cashback on all Purchases for the 1st Year"
-//                                ),
-//                                new CreditCard(
-//                        2,
-//                                "Freedom Unlimited",
-//                                "Chase",
-//                                0,
-//        LocalDate.of(2025, Month.MARCH, 23),
-//                        List.of(
-//                                "3% Cashback on Dining, including takeout and delivery",
-//                                        "3% Cashback on Drugstore purchases",
-//                                        "5% Cashback on travel booked through Chase Travel",
-//                                        "1.5% Cashback on all other purchases"
-//),
-//                        "$200 bonus in points after spending $500 in the first 3 months"
-//                                )
-//                                );
