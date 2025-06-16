@@ -19,14 +19,18 @@ public class CreditCardService {
     }
 
     // Methods
+
+    // Logic for GET Endpoint
     public List<CreditCard> getAllCreditCards() {
         return creditCardRepository.findAll();
     }
 
+    // Logic for POST Endpoint
     public void addCreditCard(CreditCard creditCard) {
         creditCardRepository.save(creditCard);
     }
 
+    // Logic for DELETE Endpoint
     public void removeCreditCard(Long creditCardId) {
         boolean exists = creditCardRepository.existsById(creditCardId);
         if (!exists) {
@@ -35,6 +39,7 @@ public class CreditCardService {
         creditCardRepository.deleteById(creditCardId);
     }
 
+    // Logic for PUT Endpoint
     @Transactional
     public void updateCreditCard(Long creditCardId, String name, String bank) {
         CreditCard creditCard = creditCardRepository.findById(creditCardId).orElseThrow(

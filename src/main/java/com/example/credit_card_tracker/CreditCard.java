@@ -6,7 +6,9 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 import java.time.LocalDate;
+import java.time.Period;
 import java.util.List;
 import java.util.Objects;
 
@@ -33,6 +35,10 @@ public class CreditCard {
     private LocalDate opening_date;
     private List<String> multipliers;
     private String welcome_bonus;
+    @Transient
+    private Integer age_years;
+    @Transient
+    private Integer age_months;
 
     // Constructors
     public CreditCard() {
@@ -119,6 +125,23 @@ public class CreditCard {
 
     public void setWelcome_bonus(String welcome_bonus) {
         this.welcome_bonus = welcome_bonus;
+    }
+
+    public Integer getAge_years() {
+        return calculateAge().getYears();
+    }
+
+    public void setAge_years(Integer age_years) { this.age_years = age_years; }
+
+    public Integer getAge_months() {
+        return calculateAge().getMonths();
+    }
+
+    public void setAge_months(Integer age_months) { this.age_months = age_months; }
+
+    // Helper Method for Age Getters
+    private Period calculateAge() {
+        return Period.between(opening_date, LocalDate.now());
     }
 
     // Equals()

@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -24,21 +25,25 @@ public class CreditCardController {
         this.creditCardService = creditCardService;
     }
 
+    // GET Endpoint
     @GetMapping
     public List<CreditCard> getCreditCard() {
         return creditCardService.getAllCreditCards();
     }
 
+    // POST Endpoint
     @PostMapping
-    public void postNewCreditCard(CreditCard creditCard) {
+    public void postNewCreditCard(@RequestBody CreditCard creditCard) {
         creditCardService.addCreditCard(creditCard);
     }
 
+    // DELETE Endpoint
     @DeleteMapping(path = "{creditCardId}")
     public void deleteCreditCard(@PathVariable("creditCardId") Long id) {
         creditCardService.removeCreditCard(id);
     }
 
+    // PUT Endpoint
     @PutMapping(path = "{creditCardId}")
     public void putCreditCard(
             @PathVariable("creditCardId") Long creditCardId,
