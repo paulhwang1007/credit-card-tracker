@@ -1,7 +1,5 @@
 package com.example.credit_card_tracker;
 
-import java.time.LocalDate;
-import java.time.Month;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -48,8 +46,12 @@ public class CreditCardController {
     public void putCreditCard(
             @PathVariable("creditCardId") Long creditCardId,
             @RequestParam(required = false) String name,
-            @RequestParam(required = false) String bank
+            @RequestParam(required = false) String bank,
+            @RequestParam(required = false) Integer annual_fee,
+            @RequestParam(required = false) String openingDateString,
+            @RequestParam(required = false) List<String> multipliers,
+            @RequestParam(required = false) String welcome_bonus
     ) {
-        creditCardService.updateCreditCard(creditCardId, name, bank);
+        creditCardService.updateCreditCard(creditCardId, name, bank, annual_fee, openingDateString, multipliers, welcome_bonus);
     }
 }
