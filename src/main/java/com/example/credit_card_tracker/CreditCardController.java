@@ -34,14 +34,8 @@ public class CreditCardController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<CreditCard> getCreditCardById(@PathVariable long id) {
-        Optional<CreditCard> card = creditCardService.getCardById(id);
-
-        if (card.isPresent()) {
-            return ResponseEntity.ok(card.get());
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+    public Optional<CreditCard> getCreditCardById(@PathVariable long id) {
+        return creditCardService.getCardById(id);
     }
 
     // POST Endpoint
