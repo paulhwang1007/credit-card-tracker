@@ -1,7 +1,9 @@
 package com.example.credit_card_tracker;
 
 import java.util.List;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,6 +31,17 @@ public class CreditCardController {
     @GetMapping
     public List<CreditCard> getCreditCard() {
         return creditCardService.getAllCreditCards();
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<CreditCard> getCreditCardById(@PathVariable long id) {
+        Optional<CreditCard> card = creditCardService.getCardById(id);
+
+        if (card.isPresent()) {
+            return ResponseEntity.ok(card.get());
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     // POST Endpoint

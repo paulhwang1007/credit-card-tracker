@@ -5,6 +5,7 @@ import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,6 +27,8 @@ public class CreditCardService {
     public List<CreditCard> getAllCreditCards() {
         return creditCardRepository.findAll();
     }
+
+    public Optional<CreditCard> getCardById(long id) { return creditCardRepository.findById(id);}
 
     // Logic for POST Endpoint
     public void addCreditCard(CreditCard creditCard) {
