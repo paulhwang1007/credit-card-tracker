@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @CrossOrigin(origins = "http://localhost:5173")
@@ -54,13 +53,8 @@ public class CreditCardController {
     @PutMapping(path = "{creditCardId}")
     public void putCreditCard(
             @PathVariable("creditCardId") Long creditCardId,
-            @RequestParam(required = false) String name,
-            @RequestParam(required = false) String bank,
-            @RequestParam(required = false) Integer annual_fee,
-            @RequestParam(required = false) String openingDateString,
-            @RequestParam(required = false) List<String> multipliers,
-            @RequestParam(required = false) String welcome_bonus
+            @RequestBody CreditCard updatedCard
     ) {
-        creditCardService.updateCreditCard(creditCardId, name, bank, annual_fee, openingDateString, multipliers, welcome_bonus);
+        creditCardService.updateCreditCard(creditCardId, updatedCard);
     }
 }

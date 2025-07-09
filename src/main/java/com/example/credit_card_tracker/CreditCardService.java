@@ -1,10 +1,7 @@
 package com.example.credit_card_tracker;
 
 import jakarta.transaction.Transactional;
-import java.time.DateTimeException;
-import java.time.LocalDate;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -48,51 +45,31 @@ public class CreditCardService {
     @Transactional
     public void updateCreditCard(
             Long creditCardId,
-            String name,
-            String bank,
-            Integer annual_fee,
-            String openingDateString,
-            List<String> multipliers,
-            String welcome_bonus
+            CreditCard updatedCard
     ) {
-
-        CreditCard creditCard = creditCardRepository.findById(creditCardId).orElseThrow(
-                () -> new IllegalStateException("Credit Card with ID " + creditCardId + " does not exist.")
+        CreditCard existingCard = creditCardRepository.findById(creditCardId).orElseThrow(
+                () -> new IllegalStateException("Credit Card with ID " + creditCardId + " does not exist")
         );
 
-        // Editing Name
-        if (name != null && !name.isEmpty() && !Objects.equals(creditCard.getName(), name)) {
-            creditCard.setName(name);
+        if (updatedCard.getName() != null && !updatedCard.getName().isEmpty()) {
+            existingCard.setName(updatedCard.getName());
+        }
+        if (updatedCard.getBank() != null && !updatedCard.getBank().isEmpty()) {
+            existingCard.setBank(updatedCard.getBank());
+        }
+        if (updatedCard.getAnnual_fee() != null) {
+            existingCard.setAnnual_fee(updatedCard.getAnnual_fee());
         }
 
-        // Editing Bank
-        if (bank != null && !bank.isEmpty() && !Objects.equals(creditCard.getBank(), bank)) {
-            creditCard.setBank(bank);
+        if (updatedCard.getOpening_date() != null) {
+            existingCard.setOpening_date(updatedCard.getOpening_date());
         }
 
-        // Editing Annual Fee
-        if (annual_fee != null) {
-            creditCard.setAnnual_fee(annual_fee);
+        if (updatedCard.getMultipliers() != null && !updatedCard.getMultipliers().isEmpty()) {
+            existingCard.setMultipliers(updatedCard.getMultipliers());
         }
-
-        // Editing Opening Date
-        if (openingDateString != null && !openingDateString.isEmpty()) {
-            try {
-                LocalDate parsedDate = LocalDate.parse(openingDateString);
-                creditCard.setOpening_date(parsedDate);
-            } catch (DateTimeException e) {
-                throw new IllegalStateException("Invalid Date Format: Use yyyy-MM-dd.");
-            }
-        }
-
-        // Editing Multipliers
-        if (multipliers != null && !multipliers.isEmpty()) {
-            creditCard.setMultipliers(multipliers);
-        }
-
-        // Editing Welcome Bonus
-        if (welcome_bonus != null && !welcome_bonus.isEmpty()) {
-            creditCard.setWelcome_bonus(welcome_bonus);
+        if (updatedCard.getWelcome_bonus() != null && !updatedCard.getWelcome_bonus().isEmpty()) {
+            existingCard.setWelcome_bonus(updatedCard.getWelcome_bonus());
         }
 
     }
